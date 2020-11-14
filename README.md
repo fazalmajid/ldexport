@@ -92,10 +92,13 @@ It will not export Lockdown's "archived" secrets by default, because presumably 
   }
 ]
 ```
+## Sample HTML output
+
+![Sample HTML output](sample.png)
 
 ## Technical details
 
-The Mac version of Lockdown saves its secrets in a plist file, which in turn contains a nested plist file in Apple's crackpot `NSKeyedArchiver` format. Fortunately 
+The Mac version of Lockdown saves its secrets in a plist file, which in turn contains a nested binary blob of a plist file in Apple's crackpot `NSKeyedArchiver` format. This code is probably very brittle to future changes in Lockdown's format.
 
 ## Credits
 
