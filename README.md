@@ -39,6 +39,60 @@ By default it exports to JSON, but with `-html` it will output a self-contained 
 
 It will not export Lockdown's "archived" secrets by default, because presumably you archived them for a reason, but adding the `-a` flag will also include them.
 
+## Sample JSON output
+
+(fake credentials, of course)
+
+```yaml
+[
+  {
+    "Service": "Amazon",
+    "Login": "amazon@example.com",
+    "Created": "2015-11-18T19:53:34.969532012Z",
+    "Modified": "2015-11-18T19:53:34.969532012Z",
+    "URL": "otpauth://totp/Amazon%3Aamazon%40example.com?secret=M7IoBWqA2WuzYG27ju82XTWsflPEha3xBafMQ3i9CgwKgp6RdBGh&issuer=Amazon",
+    "Favorite": true,
+    "Archived": false
+  },
+  {
+    "Service": "PayPal",
+    "Login": "ebay@example.com",
+    "Created": "2019-11-25T08:46:57.253684043Z",
+    "Modified": "2019-11-25T08:46:57.253684043Z",
+    "URL": "otpauth://totp/PayPal:ebay@example.com?secret=3gB0VWJFkaYcVIiD&issuer=PayPal",
+    "Favorite": false,
+    "Archived": false
+  },
+  {
+    "Service": "Reddit",
+    "Login": "johndoe",
+    "Created": "2020-08-07T19:58:37.930042982+01:00",
+    "Modified": "2020-08-07T19:58:37.930042982+01:00",
+    "URL": "otpauth://totp/Reddit:johndoe?secret=nDTxDMI6bEgVpHWCViZjDFhXKH1bysRa&issuer=Reddit",
+    "Favorite": true,
+    "Archived": false
+  },
+  {
+    "Service": "GitHub",
+    "Login": "",
+    "Created": "2016-05-04T19:04:12.495128989+01:00",
+    "Modified": "2017-04-04T06:33:10.641680002+01:00",
+    "URL": "otpauth://totp/github.com/johndoe?issuer=GitHub&secret=bXh5qmeTMzcatKKz",
+    "Favorite": false,
+    "Archived": false
+  },
+  {
+    "Service": "Google",
+    "Login": "johndoe@gmail.com",
+    "Created": "2015-11-13T05:06:07.103500008Z",
+    "Modified": "2015-11-13T05:06:07.103500008Z",
+    "URL": "otpauth://totp/Google%3Ajohndoe%40gmail.com?secret=o5MvqdWDt7ZEHHSTuH6rCAUr4M6ozGQD&issuer=Google",
+    "Favorite": false,
+    "Archived": false
+  }
+]
+```
+
 ## Technical details
 
 The Mac version of Lockdown saves its secrets in a plist file, which in turn contains a nested plist file in Apple's crackpot `NSKeyedArchiver` format. Fortunately 
