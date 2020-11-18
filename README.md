@@ -1,7 +1,7 @@
 # ldexport
 Export secrets from the Lockdown Mac/iOS two-factor authentication app
 
-I use the [Lockdown](http://cocoaapp.com/lockdown/) app to manage my TOTP two-factor authentication on my iPhone, iPad and Mac. While it has a convenient iCloud-based sync functionality to keep all of these devices in sync, it does not have a convenient way to export all the secrets for backup or migration purposes.
+I use the [Lockdown](http://cocoaapp.com/lockdown/) app to manage my TOTP two-factor authentication on my iPhone, iPad and Mac. While it has a convenient iCloud-based sync functionality to keep all of these devices in sync, it does not have a convenient way to export all the secrets for backup or migration purposes (the iOS app does have a backup feature that will email or print a PDF with a QR code, service name and login for each service, but that's not usable if you are planning on migrating from macOS to Linux as I am).
 
 ldexport is a tool to fix that. It runs on the Mac and exports the app's secrets in either:
 
