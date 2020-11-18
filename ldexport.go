@@ -122,6 +122,7 @@ const tmpl = `<!DOCTYPE html>
 body {
   font-family: 'Source Sans Pro', 'Helvetica Neue Light', 'Helvetica Neue',
                 Helvetica, 'Nimbus Sans L', sans-serif;
+  font-size: 24px;
 }
 th {
   text-align: left;
