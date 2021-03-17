@@ -132,12 +132,16 @@ h2 {
   border-bottom: 3px solid;
   padding-bottom: 6px;
 }
+div.entry {
+  break-inside: avoid;
+}
 </style>
 </head>
 <body>
 <h1>Lockdown TOTP secrets export</h1>
 <p>Generated on {{ .Now }}</p>
 {{range .Entries }}
+<div class="entry">
 <h2>{{ .Service }}{{if (ne .Login "")}} ({{ .Login}}){{end}}</h2>
 <table>
 <tr><th>Service</th><td>{{ .Service }}</td></tr>
@@ -159,6 +163,7 @@ h2 {
 <th>QR code</qr><td><img class="QR" src="{{ .QR }}" alt="{{ .URL }}"></td>
 </tr>
 </table>
+</div>
 {{end}}
 </body>
 </html>
