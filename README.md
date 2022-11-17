@@ -12,7 +12,7 @@ ldexport is a tool to fix that. It runs on the Mac and exports the app's secrets
 
 You need Go installed (tested with Go 1.12.7 and 1.15.5):
 
-```go get github.com/fazalmajid/ldexport```
+```go install github.com/fazalmajid/ldexport@latest```
 
 your `$GOPATH/bin` will have a single executable `ldexport`
 
