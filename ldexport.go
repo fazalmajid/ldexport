@@ -1,18 +1,19 @@
 package main
 
 import (
+	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/fazalmajid/go-plist"
-	//"github.com/kr/pretty"
-	"bytes"
-	"encoding/base64"
 	"html/template"
 	"log"
 	"os"
-	"rsc.io/qr"
+	"strings"
 	"time"
+
+	"github.com/fazalmajid/go-plist"
+	"rsc.io/qr"
 )
 
 var (
@@ -54,7 +55,6 @@ func export(fn string, format string) {
 	if err != nil {
 		log.Fatal("could not decode nested plist: ", err)
 	}
-
 	// decode Apple's crackpot NSKeyedArchiver serialization format, see:
 	// https://www.mac4n6.com/blog/2016/1/1/manual-analysis-of-nskeyedarchiver-formatted-plist-files-a-review-of-the-new-os-x-1011-recent-items
 	rootid := uint64(dec2["$top"].(map[string]interface{})["root"].(plist.UID))
@@ -80,7 +80,28 @@ func export(fn string, format string) {
 		default:
 			entry.Modified = entry.Created
 		}
-		entry.URL = objects[e["itemURLString"].(plist.UID)].(string)
+		urlobj, ok := e["itemURLString"]
+		if !ok {
+			log.Fatalf("missing URL in %v\n", e)
+		}
+		switch urlobj.(type) {
+		case plist.UID:
+			entry.URL = objects[urlobj.(plist.UID)].(string)
+		default:
+			log.Fatalf("%s URL: %v", entry.Service, urlobj)
+		}
+		if !strings.HasPrefix(entry.URL, "otpauth://") {
+			secret := objects[e["itemKeyKey"].(plist.UID)].(string)
+			if secret == "" || secret == "$null" {
+				log.Fatalf("Cannot get secret, %s URL: %v", entry.Service, e)
+			}
+			entry.URL = fmt.Sprintf("otpauth://totp/%s:%s?secret=%s&issuer=%s",
+				entry.Service, entry.Login, secret, entry.Service,
+			)
+		}
+		if !ok || entry.URL == "$null" {
+			log.Fatalf("missing URL in %v\n", e)
+		}
 		all = append(all, entry)
 	}
 	switch format {
