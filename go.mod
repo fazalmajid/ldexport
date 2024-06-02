@@ -1,4 +1,4 @@
-module ldexport
+module github.com/fazalmajid/ldexport
 
 go 1.12
 
